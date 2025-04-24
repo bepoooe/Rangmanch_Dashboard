@@ -1,42 +1,36 @@
 /*!
 =========================================================
-* Muse Ant Design Dashboard - v1.0.0
+* Rangmanch AI Dashboard - v1.0.0
 =========================================================
-* Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-* Coded by Creative Tim
-=========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+* Project: AI-Powered Content Engine Dashboard
 */
-import { Switch, Route, Redirect } from "react-router-dom";
-import Home from "./pages/Home";
-import Tables from "./pages/Tables";
-import Billing from "./pages/Billing";
-import Rtl from "./pages/Rtl";
-import Profile from "./pages/Profile";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
-import Main from "./components/layout/Main";
-import "antd/dist/antd.css";
-import "./assets/styles/main.css";
-import "./assets/styles/responsive.css";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Dashboard from './pages/Dashboard'; // Renamed from Home to Dashboard
+import ContentLibrary from './pages/ContentLibrary'; // New page
+import Analytics from './pages/Analytics'; // New page
+import AudienceInsights from './pages/AudienceInsights'; // New page
+import Profile from './pages/Profile';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import 'antd/dist/antd.css';
+import './assets/styles/main.css';
+import './assets/styles/responsive.css';
 
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route path="/sign-up" exact component={SignUp} />
-        <Route path="/sign-in" exact component={SignIn} />
-        <Main>
-          <Route exact path="/dashboard" component={Home} />
-          <Route exact path="/tables" component={Tables} />
-          <Route exact path="/billing" component={Billing} />
-          <Route exact path="/rtl" component={Rtl} />
-          <Route exact path="/profile" component={Profile} />
-          <Redirect from="*" to="/dashboard" />
-        </Main>
-      </Switch>
+      <Routes>
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} /> {/* Changed component to Dashboard */}
+        <Route path="/content-library" element={<ContentLibrary />} /> {/* New Route */}
+        <Route path="/analytics" element={<Analytics />} /> {/* New Route */}
+        <Route path="/audience-insights" element={<AudienceInsights />} /> {/* New Route */}
+        <Route path="/profile" element={<Profile />} />
+        {/* Catch all route */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />          
+      </Routes>
     </div>
   );
 }
